@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} List of Movie | Henrylab {% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>List of Latest Movies</h1>
+            </div>
+            <ul class="list-group">
+                {% for movie in object_list %}
+                    <li class="list-group-item">{{ movie }}</li>
+
+                    {% empty %}
+                    <li class="list-group-item">Current, we do not have latest movie!</li>
+                {% endfor %}
+            </ul>
+        <p>Using https? {{ request.is_secure|yesno }}</p>
+        </div>
+    </div>
+{% endblock %}
