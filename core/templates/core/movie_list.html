@@ -11,7 +11,9 @@
             </div>
             <ul class="list-group">
                 {% for movie in object_list %}
-                    <li class="list-group-item">{{ movie }}</li>
+                    <li class="list-group-item">
+                        <a href="{% url 'core:movie_detail' movie.id %}">{{ movie }}</a>
+                    </li>
 
                     {% empty %}
                     <li class="list-group-item">Current, we do not have latest movie!</li>
