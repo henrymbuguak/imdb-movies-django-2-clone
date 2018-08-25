@@ -7,13 +7,13 @@
                to the URL. -->
           {% if not search %}
           <li class="page-item">
-              <a class="page-link" href="{% url 'package_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              <a class="page-link" href="{% url 'movie_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
           </li>
           {% else %}
           <!-- Append the searched query to the URL, so that on a search results page,
                the pagination don't revert to listing all the listview items. -->
             <li class="page-item">
-              <a class="page-link" href="{% url 'package_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              <a class="page-link" href="{% url 'movie_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
           </li>
           {% endif %}
         {% else %}
@@ -22,16 +22,16 @@
         </li>
         {% endif %}
         {% for object in page_obj.paginator.page_range %}
-            <li class="page-item"><a class="page-link" href="{% url 'package_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'movie_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
         {% endfor %}
         {% if page_obj.has_next %}
           {% if not search %}
           <li class="page-item">
-              <a class="page-link" href="{% url 'package_list' %}?page={{ page_obj.next_page_number }}">Next</a>
+              <a class="page-link" href="{% url 'movie_list' %}?page={{ page_obj.next_page_number }}">Next</a>
           </li>
           {% else %}
             <li class="page-item">
-              <a class="page-link" href="{% url 'package_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
+              <a class="page-link" href="{% url 'movie_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
           </li>
           {% endif %}
         {% else %}
