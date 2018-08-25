@@ -12,7 +12,7 @@
             <ul class="list-group">
                 {% for movie in object_list %}
                     <li class="list-group-item">
-                        <a href="{% url 'core:movie_detail' movie.id %}">{{ movie }}</a>
+                        <a href="{% url 'core:movie_detail' pk=movie.id %}">{{ movie }}</a>
                     </li>
 
                     {% empty %}
@@ -20,6 +20,7 @@
                 {% endfor %}
             </ul>
         <p>Using https? {{ request.is_secure|yesno }}</p>
+        {% include 'layouts/pagination.html' %}
         </div>
     </div>
 {% endblock %}
