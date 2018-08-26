@@ -1,5 +1,13 @@
 from django.db import models
 
+# Custom Person model manager
+
+
+class PersonManager(models.Manager):
+    def all_with_prefetch_movies(self):
+        qs = self.get_queryset()
+        return qs.prefetch_related('directed', 'writing_credits', 'role_set__movie')
+
 
 class Movie(models.Model):
     NOT_RATED = 0
@@ -35,6 +43,8 @@ class Person(models.Model):
     last_name = models.CharField(max_length=200)
     born = models.DateField()
     died = models.DateField(null=True, blank=True)
+
+    objects = PersonManager()
 
     class Meta:
         ordering = ('last_name', 'first_name')
