@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 {% if vote_form %}
-                    <form action="{% url 'vote_form_url' %}" method="post">
+                    <form action="{{ vote_from_url }}" method="post">
                         {% csrf_token %}
                         {{ vote_form.as_p }}
                     <button class="btn btn-primary">Vote</button>
