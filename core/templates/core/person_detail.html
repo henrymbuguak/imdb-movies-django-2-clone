@@ -1,0 +1,43 @@
+{% extends 'master.html' %}
+
+
+{% block title %}
+   {{ object.first_name }}  {{ object.last_name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+       <div class="row">
+           <h2>Actor</h2>
+              <ul class="list-group">
+                   {% for role in object.role_set.all %}
+                      <li class="list-group-item">
+                          <a href="{% url 'core:movie_detail' role.movie.id %}">{{ role.movie }}</a> {{ role.name }}
+                      </li>
+                   {% endfor %}
+              </ul>
+       </div>
+        <div class="row">
+            <h2>Writer</h2>
+            <ul class="list-group">
+                {% for movie in object.writing_credits.all %}
+                    <li class="list-group-item">
+                        <a href="{% url 'core:movie_detail' movie.id %}">{{ movie }}</a>
+                    </li>
+                {% endfor %}
+                
+            </ul>
+        </div>
+        <div class="row">
+            <h2>Director</h2>
+            <ul class="list-group">
+                {% for movie in object.directed.all %}
+                    <li class="list-group-item">
+                        <a href="{% url 'core:movie_detail' movie.id %}">{{ movie }}</a>
+                    </li>
+                {% endfor %}
+                
+            </ul>
+        </div>
+    </div>
+{% endblock %}
