@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-# Custom Person model manager
+# Custom model manager
 
 
 class PersonManager(models.Manager):
@@ -16,6 +17,16 @@ class MovieManager(models.Manager):
         qs = qs.prefetch_related('writers', 'actors')
         return qs
 
+
+class VoteManager(models.Manager):
+    def get_vote_or_unsaved_blank_vote(self, movie, user):
+        try:
+            return Vote.objects.get(movie=movie, user=user)
+        except Vote.DoesNotExist:
+            return Vote(movie=movie, user=user)
+
+
+# End of custom model manager
 
 class Movie(models.Model):
     NOT_RATED = 0
@@ -85,3 +96,22 @@ class Role(models.Model):
 
     class Meta:
         unique_together = ('movie', 'person', 'name')
+
+
+class Vote(models.Model):
+    UP = 1
+    DOWN = -1
+    VALUE_CHOICES = (
+        (UP, u"\U0001F44D"),
+        (DOWN, u"\U0001F44E")
+    )
+
+    value = models.SmallIntegerField(choices=VALUE_CHOICES)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    voted_on = models.DateTimeField(auto_now=True)
+
+    objects = VoteManager()
+
+    class Meta:
+        unique_together = ('user', 'movie')

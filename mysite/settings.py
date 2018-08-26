@@ -117,7 +117,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'core:movie_list'
+LOGIN_REDIRECT_URL = 'user:login'
+
 
 
 try:

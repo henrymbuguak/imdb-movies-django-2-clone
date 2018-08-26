@@ -12,9 +12,22 @@
             <p>{{ object.plot }}</p>
         </div>
         <div class="col-md-6">
-            <div><br>
-                 This movie is rated: <br>
-                <span class="label label-primary">{{ object.get_rating_display }}</span>
+            <div class="row">
+                <div><br>
+                    This movie is rated: <br>
+                    <span class="label label-primary">{{ object.get_rating_display }}</span>
+                </div>
+            </div>
+            <div class="row">
+                {% if vote_form %}
+                    <form action="{% url 'vote_form_url' %}" method="post">
+                        {% csrf_token %}
+                        {{ vote_form.as_p }}
+                    <button class="btn btn-primary">Vote</button>
+                    </form>
+                    {% else %}
+                    <p>Login to vote for this movie</p>
+                {% endif %}
             </div>
         </div>
     </div>
