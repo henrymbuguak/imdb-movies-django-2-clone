@@ -19,6 +19,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'user',
     'core',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -114,6 +115,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'core:movie_list'
 
 
 try:
