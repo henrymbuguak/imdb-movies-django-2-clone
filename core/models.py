@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.aggregates import Sum
 
 # Custom model manager
 
@@ -15,6 +16,11 @@ class MovieManager(models.Manager):
         qs = self.get_queryset()
         qs = qs.select_related('director')
         qs = qs.prefetch_related('writers', 'actors')
+        return qs
+
+    def all_with_related_persons_and_score(self):
+        qs = self.all_with_related_persons()
+        qs = qs.annotate(score=Sum('vote__value'))
         return qs
 
 

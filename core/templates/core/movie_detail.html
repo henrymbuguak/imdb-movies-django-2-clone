@@ -7,11 +7,11 @@
 
 {% block content %}
     <div class="container">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h3>{{ object }}</h3>
             <p>{{ object.plot }}</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
                 <div><br>
                     This movie is rated: <br>
@@ -28,6 +28,11 @@
                     {% else %}
                     <p>Login to vote for this movie</p>
                 {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <h3>Score: {{ object.score|default_if_none:"No score yet!" }}</h3>
             </div>
         </div>
     </div>
