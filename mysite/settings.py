@@ -120,6 +120,10 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'user:login'
 
 
+# media files (images upload)
+MEDIAL_URL = '/uploaded/'
+MEDIAL_ROOT = os.path.join(BASE_DIR, '../media_root')
+
 
 try:
     from .local_settings import *
