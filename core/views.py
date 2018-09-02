@@ -98,3 +98,6 @@ class MovieImageUpload(LoginRequiredMixin, CreateView):
         return movie_detail_url
 
 
+class TopMovies(ListView):
+    template_name = 'core/top_movie_list.html'
+    queryset = Movie.objects.top_movies(limit=10)

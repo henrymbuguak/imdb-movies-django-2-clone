@@ -1,0 +1,25 @@
+{% extends 'master.html' %}
+
+{% block title %} Top Ten Movie | Henrylab {% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>Top Ten Movie as Rated by Users</h1>
+            </div>
+            <ul class="list-group">
+                {% for movie in object_list %}
+                    <li class="list-group-item">
+                        <a href="{% url 'core:movie_detail' pk=movie.id %}">{{ movie }}</a>
+                    </li>
+
+                    {% empty %}
+                    <li class="list-group-item">Current, we do not have rated movie!</li>
+                {% endfor %}
+            </ul>
+        {% include 'layouts/pagination.html' %}
+        </div>
+    </div>
+{% endblock %}
