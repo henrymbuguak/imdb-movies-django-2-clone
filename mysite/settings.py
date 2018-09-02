@@ -121,8 +121,8 @@ LOGIN_REDIRECT_URL = 'user:login'
 
 
 # media files (images upload)
-MEDIAL_URL = '/uploaded/'
-MEDIAL_ROOT = os.path.join(BASE_DIR, '../media_root')
+MEDIA_URL = '/uploaded/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 
 
 try:

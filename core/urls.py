@@ -8,5 +8,6 @@ urlpatterns = [
     path('movie/<int:pk>', views.MovieDetail.as_view(), name='movie_detail'),
     path('movie/vote/<int:movie_id>/create', views.CreateVote.as_view(), name='create_vote'),
     path('movie/vote/<int:movie_id>/update/<int:pk>', views.UpdateVote.as_view(), name='update_vote'),
+    path('movie/<int:movie_id>/upload/image', views.MovieImageUpload.as_view(), name='movie_image_upload')
 ]
 

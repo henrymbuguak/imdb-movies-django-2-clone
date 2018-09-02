@@ -1,2 +1,3 @@
 .idea
 /mysite/local_settings.py
+media_root

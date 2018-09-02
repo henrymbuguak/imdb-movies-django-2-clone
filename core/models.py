@@ -1,6 +1,7 @@
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.aggregates import Sum
+from django.db import models
+from uuid import uuid4
 
 # Custom model manager
 
@@ -24,7 +25,12 @@ class MovieManager(models.Manager):
         return qs
 
 
+def movie_directory_path_with_uuid(instance, filename):
+    return '{}/{}'.format(instance.movie_id, uuid4())
+
+
 class VoteManager(models.Manager):
+
     def get_vote_or_unsaved_blank_vote(self, movie, user):
         try:
             return Vote.objects.get(movie=movie, user=user)
@@ -121,3 +127,10 @@ class Vote(models.Model):
 
     class Meta:
         unique_together = ('user', 'movie')
+
+
+class MovieImage(models.Model):
+    image = models.ImageField(upload_to=movie_directory_path_with_uuid)
+    uploaded = models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
