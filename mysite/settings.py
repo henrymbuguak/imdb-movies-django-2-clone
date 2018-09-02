@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks'
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -38,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -73,6 +74,19 @@ DATABASES = {
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+    }
+}
+
+
+# Caches
+
+# https://docs.djangoproject.com/en/2.1/topics/cache/#local-memory-caching
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'default-locmemcachec',
+        'TIMEOUT': 6, # six seconds
     }
 }
 
@@ -123,6 +137,39 @@ LOGIN_REDIRECT_URL = 'user:login'
 # media files (images upload)
 MEDIA_URL = '/uploaded/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
+CSRF_USE_SESSIONS = True
+
+#debug_toolbar settings
+if DEBUG:
+    INTERNAL_IPS = ('127.0.0.1',)
+    MIDDLEWARE += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
 
 
 try:
